@@ -8,10 +8,10 @@ export const validateBody = (schema: ZodType) => {
     try {
       // Parse and validate request body
       const validatedData = schema.parse(req.body)
-      
+
       // Replace req.body with validated data
       req.body = validatedData
-      
+
       next() // Validation passed, continue
     } catch (error) {
       if (error instanceof ZodError) {

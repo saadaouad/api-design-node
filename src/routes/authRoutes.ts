@@ -1,8 +1,8 @@
 import { Router } from 'express'
+import { z } from 'zod'
 import { register, login } from '../controllers/authController.ts'
-import {insertUserSchema} from '../db/schema.ts';
+import { insertUserSchema } from '../db/schema.ts';
 import { validateBody } from '../middleware/validation.ts';
-import {z} from 'zod'
 
 const loginSchema = z.object({
     email: z.email('Invalid email'),

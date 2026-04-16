@@ -1,0 +1,45 @@
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
+import importPlugin from 'eslint-plugin-import';
+
+export default [
+    js.configs.recommended,
+    ...tseslint.configs.recommended,
+
+    {
+        files: ['**/*.ts'],
+        languageOptions: {
+            parser: tseslint.parser
+        },
+        plugins: {
+            import: importPlugin
+        },
+        rules: {
+            // Core quality
+            eqeqeq: ['error', 'always'],
+            'prefer-const': 'error',
+
+            // TS
+            '@typescript-eslint/no-unused-vars': [
+                'warn',
+                { argsIgnorePattern: '^_' }
+            ],
+
+            // Express-friendly
+            'no-console': 'off',
+
+            // Imports
+            'import/order': [
+                'warn',
+                {
+                    'newlines-between': 'always',
+                    alphabetize: { order: 'asc' }
+                }
+            ],
+            'unused-imports/no-unused-imports': 'warn'
+        }
+    },
+
+    prettier
+];

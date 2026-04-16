@@ -1,5 +1,5 @@
-import {db} from './connection.ts'
-import {users, habits, entries, tags, habitTags} from './schema.ts'
+import { db } from './connection.ts'
+import { users, habits, entries, tags, habitTags } from './schema.ts'
 
 const seed = async () => {
     console.log('Starting database seed...')
@@ -54,12 +54,12 @@ const seed = async () => {
                 completionDate: date,
             })
         }
-        
+
         console.log('DB seeded successfully')
     } catch (e) {
         console.error('seed failed', e)
         process.exit(1)
-    }  
+    }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

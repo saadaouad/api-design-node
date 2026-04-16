@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import { authenticateToken } from '../middleware/auth.ts'
 
 const router = Router()

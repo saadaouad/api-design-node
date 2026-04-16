@@ -34,8 +34,8 @@ app.get('/health', (req, res) => {
 })
 
 // Mount routers with base paths
-app.use('/api/auth', authRoutes)  
-app.use('/api/users', userRoutes) 
+app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
 app.use('/api/habits', habitRoutes)
 
 export { app }
