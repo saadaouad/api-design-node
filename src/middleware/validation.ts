@@ -2,17 +2,14 @@ import type { Request, Response, NextFunction } from 'express'
 import type { ZodType } from 'zod'
 import { ZodError } from 'zod'
 
-// Validate request body
 export const validateBody = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Parse and validate request body
       const validatedData = schema.parse(req.body)
 
-      // Replace req.body with validated data
       req.body = validatedData
 
-      next() // Validation passed, continue
+      next()
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
@@ -23,12 +20,11 @@ export const validateBody = (schema: ZodType) => {
           })),
         })
       }
-      next(error) // Unexpected error, pass to error handler
+      next(error)
     }
   }
 }
 
-// Validate URL parameters
 export const validateParams = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -49,7 +45,6 @@ export const validateParams = (schema: ZodType) => {
   }
 }
 
-// Validate query parameters
 export const validateQuery = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
