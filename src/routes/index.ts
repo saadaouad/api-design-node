@@ -1,3 +1,3 @@
-export { default as authRoutes } from './authRoutes.ts'
-export { default as habitRoutes } from './habitRoutes.ts'
-export { default as userRoutes } from './userRoutes.ts'
+export { default as auth } from './auth.ts'
+export { default as habit } from './habit.ts'
+export { default as user } from './user.ts'

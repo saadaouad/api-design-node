@@ -4,7 +4,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 
 import { env, isDev, isTestEnv } from '../env.ts'
-import { authRoutes, habitRoutes, userRoutes } from './routes/index.ts'
+import { auth, habit, user } from './routes/index.ts'
 
 const app = express()
 
@@ -34,9 +34,9 @@ app.get('/health', (req, res) => {
 })
 
 // Mount routers with base paths
-app.use('/api/auth', authRoutes)
-app.use('/api/users', userRoutes)
-app.use('/api/habits', habitRoutes)
+app.use('/api/auth', auth)
+app.use('/api/users', user)
+app.use('/api/habits', habit)
 
 export { app }
 export default app

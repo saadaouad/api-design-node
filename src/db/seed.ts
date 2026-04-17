@@ -1,5 +1,6 @@
 import { db } from './connection.ts'
 import { users, habits, entries, tags, habitTags } from './schema.ts'
+import { mockHabit, mockTag, mockUser } from '../mocks/seed.mock.ts'
 
 const seed = async () => {
     console.log('Starting database seed...')
@@ -13,28 +14,19 @@ const seed = async () => {
         await db.delete(users)
 
         console.log('Creating demo users...')
-        const [demoUser] = await db.insert(users).values({
-            email: 'demo@app.com',
-            password: 'password',
-            firstName: 'demo',
-            lastName: 'person',
-            username: 'demo'
-        }).returning()
+        const [demoUser] = await db.insert(users).values(mockUser).returning()
 
         console.log('Creating tags...')
-        const [healthTag] = await db.insert(tags).values({
-            name: 'Health',
-            color: '#f0f0f0'
-        }).returning()
+        const [healthTag] = await db.insert(tags).values(mockTag).returning()
 
         console.log('Creating habits...')
-        const [exerciceHabit] = await db.insert(habits).values({
-            userId: demoUser.id,
-            name: 'Exercice',
-            description: 'Daily workout',
-            frequency: 'daily',
-            targetCount: 1
-        }).returning()
+        const [exerciceHabit] = await db
+            .insert(habits)
+            .values({
+                ...mockHabit,
+                userId: demoUser.id,
+            })
+            .returning()
 
         await db.insert(habitTags).values({
             habitId: exerciceHabit.id,
