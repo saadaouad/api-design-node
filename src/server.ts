@@ -25,7 +25,6 @@ app.use(
   })
 )
 
-// Health check endpoint (direct on app)
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
@@ -34,7 +33,6 @@ app.get('/health', (req, res) => {
   })
 })
 
-// Mount routers with base paths
 app.use('/api/auth', auth)
 app.use('/api/users', user)
 app.use('/api/habits', habit)
