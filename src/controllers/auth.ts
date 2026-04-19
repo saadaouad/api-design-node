@@ -7,11 +7,15 @@ import { generateToken, hashPassword, comparePasswords } from '../utils/index.ts
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const hashedPassword = await hashPassword(req.body.password)
+        const { email, username, password, firstName, lastName } = req.body
+        const hashedPassword = await hashPassword(password)
 
         const [user] = await db.insert(users).values({
-            ...req.body,
-            password: hashedPassword
+            email,
+            username,
+            password: hashedPassword,
+            firstName,
+            lastName,
         })
             .returning({
                 id: users.id,

@@ -1,13 +1,8 @@
-import { jwtVerify, SignJWT, type JWTPayload } from 'jose'
+import { jwtVerify, SignJWT } from 'jose'
 import { createSecretKey } from 'crypto'
 
 import env from '../../env.ts'
-
-export interface JwtPayload extends JWTPayload {
-    id: string
-    email: string
-    username: string
-}
+import type { JwtPayload } from "../types/jwt.ts"
 
 export const generateToken = (payload: JwtPayload) => {
     const secret = env.JWT_SECRET
