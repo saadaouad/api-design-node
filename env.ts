@@ -4,7 +4,7 @@ import { flattenError, z } from 'zod'
 // Determine application stage
 process.env.APP_STAGE = process.env.APP_STAGE || 'dev'
 
-const isProduction = process.env.APP_STAGE === 'production'
+const isProduction = process.env.APP_STAGE === 'prod'
 const isDevelopment = process.env.APP_STAGE === 'dev'
 const isTest = process.env.APP_STAGE === 'test'
 
@@ -22,7 +22,7 @@ const envSchema = z.object({
     .enum(['development', 'production', 'test'])
     .default('development'),
 
-  APP_STAGE: z.enum(['dev', 'production', 'test']).default('dev'),
+  APP_STAGE: z.enum(['dev', 'prod', 'test']).default('dev'),
 
   // Server configuration
   PORT: z.coerce.number().positive().default(3000),
