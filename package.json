@@ -68,6 +68,7 @@
     "supertest": "^6.3.4",
     "tsx": "^4.20.4",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.59.0",
     "vitest": "^3.2.4"
   }
 }

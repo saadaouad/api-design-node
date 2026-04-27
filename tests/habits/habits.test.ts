@@ -1,22 +1,17 @@
-import request from 'supertest'
-import { afterEach } from 'vitest'
+import request from 'supertest';
+import { afterEach } from 'vitest';
 
-import {
-  createTestUser,
-  createTestHabit,
-  cleanupDatabase,
-} from '../helpers/dbHelpers.ts'
-import { app } from '../../src/server.ts'
-
+import { app } from '../../src/server.ts';
+import { createTestUser, createTestHabit, cleanupDatabase } from '../helpers/dbHelpers.ts';
 
 describe('Habits API', () => {
   afterEach(async () => {
-    await cleanupDatabase()
-  })
+    await cleanupDatabase();
+  });
 
   describe('POST /api/habits', () => {
     it('should create a new habit', async () => {
-      const { token } = await createTestUser()
+      const { token } = await createTestUser();
 
       const response = await request(app)
         .post('/api/habits')
@@ -25,122 +20,122 @@ describe('Habits API', () => {
           name: 'Exercise daily',
           description: 'Daily exercise routine',
           frequency: 'daily',
-          targetCount: 1,
-        })
+          targetCount: 1
+        });
 
-      expect(response.status).toBe(201)
-      expect(response.body.habit).toBeDefined()
-      expect(response.body.habit.name).toBe('Exercise daily')
-    })
+      expect(response.status).toBe(201);
+      expect(response.body.habit).toBeDefined();
+      expect(response.body.habit.name).toBe('Exercise daily');
+    });
 
     it('should require authentication', async () => {
       const response = await request(app).post('/api/habits').send({
         name: 'Exercise',
-        frequency: 'daily',
-      })
+        frequency: 'daily'
+      });
 
-      expect(response.status).toBe(401)
-    })
+      expect(response.status).toBe(401);
+    });
 
     it('should validate input data', async () => {
-      const { token } = await createTestUser()
+      const { token } = await createTestUser();
 
       const response = await request(app)
         .post('/api/habits')
         .set('Authorization', `Bearer ${token}`)
         .send({
           name: '',
-          frequency: 'invalid',
-        })
+          frequency: 'invalid'
+        });
 
-      expect(response.status).toBe(400)
-    })
-  })
+      expect(response.status).toBe(400);
+    });
+  });
 
   describe('GET /api/habits', () => {
     it('should get all user habits', async () => {
-      const { user, token } = await createTestUser()
-      await createTestHabit(user.id)
+      const { user, token } = await createTestUser();
+      await createTestHabit(user.id);
 
       const response = await request(app)
         .get('/api/habits')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toBe(200)
-      expect(Array.isArray(response.body.habits)).toBe(true)
-      expect(response.body.habits.length).toBeGreaterThan(0)
-    })
+      expect(response.status).toBe(200);
+      expect(Array.isArray(response.body.habits)).toBe(true);
+      expect(response.body.habits.length).toBeGreaterThan(0);
+    });
 
     it('should return empty array for user with no habits', async () => {
-      const { token } = await createTestUser()
+      const { token } = await createTestUser();
 
       const response = await request(app)
         .get('/api/habits')
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toBe(200)
-      expect(Array.isArray(response.body.habits)).toBe(true)
-      expect(response.body.habits.length).toBe(0)
-    })
-  })
+      expect(response.status).toBe(200);
+      expect(Array.isArray(response.body.habits)).toBe(true);
+      expect(response.body.habits.length).toBe(0);
+    });
+  });
 
   describe('PUT /api/habits/:id', () => {
     it('should update a habit', async () => {
-      const { user, token } = await createTestUser()
-      const habit = await createTestHabit(user.id)
+      const { user, token } = await createTestUser();
+      const habit = await createTestHabit(user.id);
 
       const response = await request(app)
         .patch(`/api/habits/${habit.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           name: 'Read for 30 minutes',
-          description: 'Extended reading time',
-        })
+          description: 'Extended reading time'
+        });
 
-      expect(response.status).toBe(200)
-      expect(response.body.habit.name).toBe('Read for 30 minutes')
-    })
+      expect(response.status).toBe(200);
+      expect(response.body.habit.name).toBe('Read for 30 minutes');
+    });
 
     it('should return 404 for non-existent habit', async () => {
-      const { token } = await createTestUser()
-      const fakeId = '00000000-0000-0000-0000-000000000000'
+      const { token } = await createTestUser();
+      const fakeId = '00000000-0000-0000-0000-000000000000';
 
       const response = await request(app)
         .put(`/api/habits/${fakeId}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
-          name: 'Updated name',
-        })
+          name: 'Updated name'
+        });
 
-      expect(response.status).toBe(404)
-    })
-  })
+      expect(response.status).toBe(404);
+    });
+  });
 
   describe('DELETE /api/habits/:id', () => {
     it('should delete a habit', async () => {
-      const { user, token } = await createTestUser()
+      const { user, token } = await createTestUser();
       const habit = await createTestHabit(user.id, {
         name: 'Temporary habit',
-        description: 'To be deleted',
-      })
+        description: 'To be deleted'
+      });
 
       const response = await request(app)
         .delete(`/api/habits/${habit.id}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toBe(200)
-      expect(response.body.message).toBe('Habit deleted successfully')
-    })
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Habit deleted successfully');
+    });
 
     it('should return 404 for non-existent habit', async () => {
-      const { token } = await createTestUser()
-      const fakeId = '00000000-0000-0000-0000-000000000000'
+      const { token } = await createTestUser();
+      const fakeId = '00000000-0000-0000-0000-000000000000';
 
       const response = await request(app)
         .delete(`/api/habits/${fakeId}`)
-        .set('Authorization', `Bearer ${token}`)
+        .set('Authorization', `Bearer ${token}`);
 
-      expect(response.status).toBe(404)
-    })
-  })
-})
+      expect(response.status).toBe(404);
+    });
+  });
+});
