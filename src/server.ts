@@ -3,10 +3,9 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
-import { env, isTestEnv } from '../env.ts';
-
-import { errorHandler } from './middleware/errorHandler.ts';
+import { errorHandler } from './middleware/index.ts';
 import { auth, habit, user } from './routes/index.ts';
+import { env, isTestEnv } from '../env.ts';
 
 const app = express();
 

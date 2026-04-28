@@ -3,7 +3,7 @@ import type { Response } from 'express';
 
 import { db } from '../db/connection.ts';
 import { habits, entries, habitTags } from '../db/schema.ts';
-import type { AuthenticatedRequest } from '../middleware/auth.ts';
+import type { AuthenticatedRequest } from '../types/index.ts';
 
 export const createHabit = async (req: AuthenticatedRequest, res: Response) => {
   try {

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { authenticateToken } from '../middleware/auth.ts';
+import { authenticateToken } from '../middleware/index.ts';
 
 const router = Router();
 
