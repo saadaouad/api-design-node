@@ -2,8 +2,7 @@ import { db } from '../../src/db/connection.ts';
 import { users, habits, entries } from '../../src/db/schema.ts';
 import type { Habit } from '../../src/types/habit.ts';
 import type { User } from '../../src/types/user.ts';
-import { hashPassword } from '../../src/utils/index.ts';
-import { generateToken } from '../../src/utils/jwt.ts';
+import { hashPassword, generateToken } from '../../src/utils/index.ts';
 
 export async function createTestUser(userData: Partial<User> = {}) {
   const defaultData = {

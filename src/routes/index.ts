@@ -1,3 +1,5 @@
-export { default as auth } from './auth.ts';
-export { default as habit } from './habit.ts';
-export { default as user } from './user.ts';
+import auth from './auth.ts';
+import habit from './habit.ts';
+import user from './user.ts';
+
+export { auth, habit, user };

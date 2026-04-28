@@ -1,5 +1,4 @@
 import { execSync } from 'child_process';
-
 import { sql } from 'drizzle-orm';
 
 import { db } from '../src/db/connection.ts';

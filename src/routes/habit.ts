@@ -7,8 +7,7 @@ import {
   updateHabit,
   deleteHabit
 } from '../controllers/habit.ts';
-import { authenticateToken } from '../middleware/auth.ts';
-import { validateBody, validateParams } from '../middleware/validation.ts';
+import { authenticateToken, validateBody, validateParams } from '../middleware/index.ts';
 import { createHabitSchema, updateHabitSchema, uuidSchema } from '../schema-validation/habit.ts';
 
 const router = Router();
