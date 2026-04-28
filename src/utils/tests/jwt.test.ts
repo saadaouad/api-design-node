@@ -2,7 +2,7 @@ import { createSecretKey } from 'crypto';
 import { decodeProtectedHeader, SignJWT } from 'jose';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { generateToken, verifyToken } from './index.ts';
+import { generateToken, verifyToken } from '../jwt.ts';
 
 vi.mock('../../../env.ts', () => ({
   default: {

@@ -17,7 +17,7 @@
     "db:studio": "drizzle-kit studio",
     "db:seed": "node src/db/seed.ts",
     "test:unit": "cross-env APP_STAGE=test vitest run --project unit",
-    "test:integration": "cross-env APP_STAGE=test vitest run",
+    "test:integration": "cross-env APP_STAGE=test vitest run --project integration",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -1,9 +1,8 @@
 import { createSecretKey } from 'crypto';
-
 import { jwtVerify, SignJWT } from 'jose';
 
-import env from '../../../env.ts';
-import type { JwtPayload } from '../../types/jwt.ts';
+import env from '../../env.ts';
+import type { JwtPayload } from '../types/jwt.ts';
 
 export const generateToken = (payload: JwtPayload) => {
   const secret = env.JWT_SECRET;
