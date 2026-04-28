@@ -1,66 +1,66 @@
-import type { Request, Response, NextFunction } from 'express'
-import type { ZodType } from 'zod'
-import { ZodError } from 'zod'
+import type { Request, Response, NextFunction } from 'express';
+import type { ZodType } from 'zod';
+import { ZodError } from 'zod';
 
 export const validateBody = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      const validatedData = schema.parse(req.body)
+      const validatedData = schema.parse(req.body);
 
-      req.body = validatedData
+      req.body = validatedData;
 
-      next()
+      next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
           error: 'Validation failed',
           details: error.issues.map((err) => ({
             field: err.path.join('.'),
-            message: err.message,
-          })),
-        })
+            message: err.message
+          }))
+        });
       }
-      next(error)
+      next(error);
     }
-  }
-}
+  };
+};
 
 export const validateParams = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse(req.params)
-      next()
+      schema.parse(req.params);
+      next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
           error: 'Invalid parameters',
           details: error.issues.map((err) => ({
             field: err.path.join('.'),
-            message: err.message,
-          })),
-        })
+            message: err.message
+          }))
+        });
       }
-      next(error)
+      next(error);
     }
-  }
-}
+  };
+};
 
 export const validateQuery = (schema: ZodType) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse(req.query)
-      next()
+      schema.parse(req.query);
+      next();
     } catch (error) {
       if (error instanceof ZodError) {
         return res.status(400).json({
           error: 'Invalid query parameters',
           details: error.issues.map((err) => ({
             field: err.path.join('.'),
-            message: err.message,
-          })),
-        })
+            message: err.message
+          }))
+        });
       }
-      next(error)
+      next(error);
     }
-  }
-}
+  };
+};

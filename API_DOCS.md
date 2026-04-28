@@ -1,12 +1,15 @@
 # Habit Tracker API Documentation
 
 ## Base URL
+
 ```
 http://localhost:3000/api
 ```
 
 ## Authentication
+
 Most endpoints require authentication via JWT token in the Authorization header:
+
 ```
 Authorization: Bearer <your-jwt-token>
 ```
@@ -16,6 +19,7 @@ Authorization: Bearer <your-jwt-token>
 ### Authentication
 
 #### Register New User
+
 ```http
 POST /auth/register
 Content-Type: application/json
@@ -30,6 +34,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "message": "User registered successfully",
@@ -43,6 +48,7 @@ Content-Type: application/json
 ```
 
 #### Login
+
 ```http
 POST /auth/login
 Content-Type: application/json
@@ -54,6 +60,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "message": "Login successful",
@@ -69,12 +76,14 @@ Content-Type: application/json
 ### Habits
 
 #### Get All User Habits
+
 ```http
 GET /habits
 Authorization: Bearer <token>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "habits": [
@@ -94,6 +103,7 @@ Authorization: Bearer <token>
 ```
 
 #### Create New Habit
+
 ```http
 POST /habits
 Authorization: Bearer <token>
@@ -108,6 +118,7 @@ Content-Type: application/json
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "message": "Habit created successfully",
@@ -126,6 +137,7 @@ Content-Type: application/json
 ```
 
 #### Update Habit
+
 ```http
 PUT /habits/:id
 Authorization: Bearer <token>
@@ -138,6 +150,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "message": "Habit updated successfully",
@@ -154,12 +167,14 @@ Content-Type: application/json
 ```
 
 #### Delete Habit
+
 ```http
 DELETE /habits/:id
 Authorization: Bearer <token>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "message": "Habit deleted successfully"
@@ -169,12 +184,14 @@ Authorization: Bearer <token>
 ### Habit Completion
 
 #### Complete Habit (Action Endpoint)
+
 ```http
 POST /habits/:id/complete
 Authorization: Bearer <token>
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "message": "Habit completed successfully",
@@ -189,6 +206,7 @@ Authorization: Bearer <token>
 ```
 
 **Error Response (409 Conflict) - Already completed today:**
+
 ```json
 {
   "error": "Habit already completed today",
@@ -199,12 +217,14 @@ Authorization: Bearer <token>
 ### Habit Statistics
 
 #### Get Habit Stats (Data Aggregation Endpoint)
+
 ```http
 GET /habits/:id/stats
 Authorization: Bearer <token>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "name": "Exercise",
@@ -218,12 +238,14 @@ Authorization: Bearer <token>
 ### User Management
 
 #### Get User Profile
+
 ```http
 GET /users/profile
 Authorization: Bearer <token>
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "user": {
@@ -238,6 +260,7 @@ Authorization: Bearer <token>
 ```
 
 #### Update User Profile
+
 ```http
 PUT /users/profile
 Authorization: Bearer <token>
@@ -250,6 +273,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "message": "Profile updated successfully",
@@ -264,6 +288,7 @@ Content-Type: application/json
 ```
 
 #### Change Password
+
 ```http
 PUT /users/password
 Authorization: Bearer <token>
@@ -276,6 +301,7 @@ Content-Type: application/json
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "message": "Password changed successfully"
@@ -285,6 +311,7 @@ Content-Type: application/json
 ## Error Responses
 
 ### 400 Bad Request
+
 ```json
 {
   "error": "Validation failed",
@@ -298,6 +325,7 @@ Content-Type: application/json
 ```
 
 ### 401 Unauthorized
+
 ```json
 {
   "error": "Authentication required",
@@ -306,6 +334,7 @@ Content-Type: application/json
 ```
 
 ### 404 Not Found
+
 ```json
 {
   "error": "Habit not found"
@@ -313,6 +342,7 @@ Content-Type: application/json
 ```
 
 ### 409 Conflict
+
 ```json
 {
   "error": "Email already registered"
@@ -320,6 +350,7 @@ Content-Type: application/json
 ```
 
 ### 500 Internal Server Error
+
 ```json
 {
   "error": "Internal server error",
@@ -330,6 +361,7 @@ Content-Type: application/json
 ## Testing with cURL
 
 ### Register a new user
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -343,6 +375,7 @@ curl -X POST http://localhost:3000/api/auth/register \
 ```
 
 ### Login
+
 ```bash
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -353,6 +386,7 @@ curl -X POST http://localhost:3000/api/auth/login \
 ```
 
 ### Create a habit (replace TOKEN with actual token)
+
 ```bash
 curl -X POST http://localhost:3000/api/habits \
   -H "Authorization: Bearer TOKEN" \
@@ -366,12 +400,14 @@ curl -X POST http://localhost:3000/api/habits \
 ```
 
 ### Complete a habit
+
 ```bash
 curl -X POST http://localhost:3000/api/habits/HABIT_ID/complete \
   -H "Authorization: Bearer TOKEN"
 ```
 
 ### Get habit statistics
+
 ```bash
 curl -X GET http://localhost:3000/api/habits/HABIT_ID/stats \
   -H "Authorization: Bearer TOKEN"
@@ -380,16 +416,19 @@ curl -X GET http://localhost:3000/api/habits/HABIT_ID/stats \
 ## Rate Limiting
 
 The API implements rate limiting to prevent abuse:
+
 - Authentication endpoints: 5 requests per minute
 - Other endpoints: 100 requests per minute per user
 
 ## Pagination
 
 List endpoints support pagination via query parameters:
+
 - `page`: Page number (default: 1)
 - `limit`: Items per page (default: 10, max: 100)
 
 Example:
+
 ```http
 GET /habits?page=2&limit=20
 ```
@@ -397,6 +436,7 @@ GET /habits?page=2&limit=20
 ## Webhook Events (Future Enhancement)
 
 The API can be extended to support webhooks for the following events:
+
 - `habit.created` - When a new habit is created
 - `habit.completed` - When a habit is marked as complete
 - `streak.milestone` - When a user reaches a streak milestone (7, 30, 100 days)
@@ -405,6 +445,7 @@ The API can be extended to support webhooks for the following events:
 ## SDK Examples
 
 ### JavaScript/TypeScript
+
 ```typescript
 class HabitTrackerAPI {
   private baseURL = 'http://localhost:3000/api';
@@ -423,7 +464,7 @@ class HabitTrackerAPI {
 
   async getHabits() {
     const response = await fetch(`${this.baseURL}/habits`, {
-      headers: { 'Authorization': `Bearer ${this.token}` }
+      headers: { Authorization: `Bearer ${this.token}` }
     });
     return response.json();
   }
@@ -431,14 +472,14 @@ class HabitTrackerAPI {
   async completeHabit(habitId: string) {
     const response = await fetch(`${this.baseURL}/habits/${habitId}/complete`, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${this.token}` }
+      headers: { Authorization: `Bearer ${this.token}` }
     });
     return response.json();
   }
 
   async getHabitStats(habitId: string) {
     const response = await fetch(`${this.baseURL}/habits/${habitId}/stats`, {
-      headers: { 'Authorization': `Bearer ${this.token}` }
+      headers: { Authorization: `Bearer ${this.token}` }
     });
     return response.json();
   }

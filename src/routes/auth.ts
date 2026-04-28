@@ -1,13 +1,13 @@
-import { Router } from 'express'
+import { Router } from 'express';
 
-import { register, login } from '../controllers/auth.ts'
-import { validateBody } from '../middleware/validation.ts'
-import { loginSchema, registerSchema } from '../schema-validation/auth.ts'
+import { register, login } from '../controllers/auth.ts';
+import { validateBody } from '../middleware/validation.ts';
+import { loginSchema, registerSchema } from '../schema-validation/auth.ts';
 
-const router = Router()
+const router = Router();
 
-router.post('/register', validateBody(registerSchema), register)
+router.post('/register', validateBody(registerSchema), register);
 
-router.post('/login', validateBody(loginSchema), login)
+router.post('/login', validateBody(loginSchema), login);
 
-export default router
+export default router;
