@@ -21,6 +21,12 @@ router.get('/:id', validateParams(uuidSchema), getHabitById);
 
 router.post('/', validateBody(createHabitSchema), createHabit);
 
+router.put(
+  '/:id',
+  validateParams(uuidSchema),
+  validateBody(updateHabitSchema),
+  updateHabit
+);
 router.patch('/:id', validateParams(uuidSchema), validateBody(updateHabitSchema), updateHabit);
 router.delete('/:id', validateParams(uuidSchema), deleteHabit);
 
