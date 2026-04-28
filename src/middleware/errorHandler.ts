@@ -1,40 +1,49 @@
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 import { env } from '../../env.ts';
 
 export class APIError extends Error {
-  message: string;
   status: number;
-  name: string;
   constructor(message: string, name: string, status: number) {
-    super();
-    this.message = message;
+    super(message);
     this.name = name;
     this.status = status;
   }
 }
 
-export const errorHandler = (err: APIError, req: Request, res: Response) => {
-  console.error('Error handler', err.stack);
-
-  let status = err.status || 500;
-  let message = err.message || 'Internal Server Error';
-
-  if (err.name === 'ValidationError') {
-    status = 400;
-    message = 'Validation Error';
+export const errorHandler = (err: unknown, req: Request, res: Response, next: NextFunction) => {
+  if (res.headersSent) {
+    return next(err);
   }
 
-  if (err.name === 'UnauthorizedError') {
-    status = 401;
-    message = 'Unauthorized';
+  console.error('Error handler', err instanceof Error ? err.stack : err);
+
+  let status = 500;
+  let message = 'Internal Server Error';
+
+  if (err instanceof APIError) {
+    status = err.status;
+    message = err.message;
+  } else if (err instanceof Error) {
+    message = err.message;
+
+    if (err.name === 'ValidationError') {
+      status = 400;
+      message = 'Validation Error';
+    }
+
+    if (err.name === 'UnauthorizedError') {
+      status = 401;
+      message = 'Unauthorized';
+    }
   }
 
   return res.status(status).json({
     error: message,
-    ...(env.APP_STAGE === 'dev' && {
-      stack: err.stack,
-      details: err.message
-    })
+    ...(env.APP_STAGE === 'dev' &&
+      err instanceof Error && {
+        stack: err.stack,
+        details: err.message
+      })
   });
 };

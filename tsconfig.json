@@ -2,6 +2,7 @@
   "compilerOptions": {
     "noEmit": true,
     "target": "esnext",
+    "skipLibCheck": true,
     "module": "nodenext",
     "rewriteRelativeImportExtensions": true,
     "erasableSyntaxOnly": true,

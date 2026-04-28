@@ -85,7 +85,7 @@ describe('Habits API', () => {
       const habit = await createTestHabit(user.id);
 
       const response = await request(app)
-        .patch(`/api/habits/${habit.id}`)
+        .put(`/api/habits/${habit.id}`)
         .set('Authorization', `Bearer ${token}`)
         .send({
           name: 'Read for 30 minutes',
