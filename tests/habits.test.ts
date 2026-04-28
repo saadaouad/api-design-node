@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { afterEach } from 'vitest';
 
-import { app } from '../../src/server.ts';
-import { createTestUser, createTestHabit, cleanupDatabase } from '../helpers/dbHelpers.ts';
+import { createTestUser, createTestHabit, cleanupDatabase } from './helpers/dbHelpers.ts';
+import app from '../src/server.ts';
 
 describe('Habits API', () => {
   afterEach(async () => {

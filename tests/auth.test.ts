@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { afterEach } from 'vitest';
 
-import app from '../../src/server.ts';
-import { createTestUser, cleanupDatabase } from '../helpers/dbHelpers.ts';
+import { createTestUser, cleanupDatabase } from './helpers/dbHelpers.ts';
+import app from '../src/server.ts';
 
 describe('Authentication Endpoints', () => {
   afterEach(async () => {

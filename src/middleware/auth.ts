@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { Response, NextFunction } from 'express';
 
 import type { AuthenticatedRequest } from '../types/index.ts';
 import { verifyToken } from '../utils/index.ts';

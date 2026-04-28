@@ -1,4 +1,4 @@
-import { generateToken, verifyToken } from './jwt/index.ts';
-import { hashPassword, comparePasswords } from './passwords/index.ts';
+import { generateToken, verifyToken } from './jwt.ts';
+import { hashPassword, comparePasswords } from './passwords.ts';
 
 export { generateToken, verifyToken, hashPassword, comparePasswords };

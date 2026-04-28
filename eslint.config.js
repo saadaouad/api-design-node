@@ -29,13 +29,6 @@ export default [
       'no-console': 'off',
 
       // Imports
-      'import/order': [
-        'warn',
-        {
-          'newlines-between': 'always',
-          alphabetize: { order: 'asc' }
-        }
-      ],
       'unused-imports/no-unused-imports': 'warn'
     }
   },

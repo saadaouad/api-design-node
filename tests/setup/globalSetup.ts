@@ -1,8 +1,8 @@
 import { execSync } from 'child_process';
 import { sql } from 'drizzle-orm';
 
-import { db } from '../src/db/connection.ts';
-import { users, habits, entries, tags, habitTags } from '../src/db/schema.ts';
+import { db } from '../../src/db/connection.ts';
+import { users, habits, entries, tags, habitTags } from '../../src/db/schema.ts';
 
 const execSyncCmd = `npx drizzle-kit push --url="${process.env.DATABASE_URL}" --schema="./src/db/schema.ts" --dialect="postgresql"`;
 

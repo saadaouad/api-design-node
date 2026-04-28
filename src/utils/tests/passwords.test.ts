@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import { comparePasswords, hashPassword } from './index.ts';
+import { comparePasswords, hashPassword } from '../passwords.ts';
 
 vi.mock('../../../env.ts', () => ({
   default: {

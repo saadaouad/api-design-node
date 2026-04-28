@@ -1,4 +1,4 @@
-import { createTestUser, cleanupDatabase } from './helpers/dbHelpers.ts';
+import { createTestUser, cleanupDatabase } from '../helpers/dbHelpers.ts';
 
 describe('Test setup', () => {
   test('should connect to the test db', async () => {
